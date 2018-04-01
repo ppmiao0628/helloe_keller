@@ -1,2 +1,26 @@
+doctype
 html
-    div 我的名字:#{name}
+    head
+        meta(charset="utf-8")
+        div 我的名字:#{name}
+        script.
+            alert(1);
+        div.
+            'hello'
+        div(style=json)
+        div(class=arr)
+        div(class=arr class='black')
+        -for(var i=0;i<arr.length;i++)
+            div=arr[i]
+
+        -var a=1
+        -if (a%2)
+            div(style={background:'red'}) 偶数
+        -else
+            div(style={background:'black'}) 奇数
+
+        case a
+            when 0
+                div 0
+            when 1
+                div 1
