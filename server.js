@@ -50,10 +50,11 @@ const expressStatic = require('express-static');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const pathLib = require('path');
-const jade = require('jade');
-const ejs = require('ejs');
+// const jade = require('jade');
+// const ejs = require('ejs');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
+const consolidate = require('consolidate');
 
 let server = express();
 
@@ -70,6 +71,18 @@ server.use(cookieSession({name: 'sess_id', keys: arr, maxAge: 24*3600*1000}));
 // post 参数
 server.use(bodyParser.urlencoded({extended: false}));
 server.use(multer({dest:'./upload'}).any());
+
+// 配置模板引擎
+// 输出
+server.set('view engine', 'html');
+// 模板文件
+server.set('views', './view');
+// 引擎
+server.engine('html', consolidate.ejs);
+
+server.get('/index', function (req, res) {
+    res.render('view.ejs', {name: 'keller'});
+});
 
 // 用户请求根目录
 server.use('/', function (req, res, next) {
