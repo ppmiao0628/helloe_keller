@@ -1,28 +1,17 @@
 /**
- * 单向链表
- * @author mpp
- * @constructor
+ * Created by kellerme on 2018/6/2
  */
-function LinkedList() {
+function DoubleLinkedList() {
     let Node = function (element) {
         this.element = element;
         this.next = null;
+        this.prev = null;
     };
     let length = 0;
     let head = null;
+    let tail = null;
     this.append = function (element) {
-        let node = new Node(element);
-        let current = null;
-        if (!head) {
-            head = node;
-        } else {
-            current = head;
-            while (current.next) {
-                current = current.next;
-            }
-            current.next = node;
-        }
-        length++;
+        this.insert(length, element);
     };
     this.insert = function (position, element) {
         if (position > -1 && position <= length) {
@@ -31,15 +20,28 @@ function LinkedList() {
             let previous = null;
             let index = 0;
             if (position === 0) {
-                node.next = current;
-                head = node;
+                if (!head) {
+                    head = node;
+                    tail = node;
+                } else {
+                    node.next = current;
+                    current.prev = node;
+                    head = node;
+                }
+            } else if (position === length) {
+                current = tail;
+                current.next = node;
+                node.prev = current;
+                tail = node;
             } else {
                 while (index++ < position) {
                     previous = current;
                     current = current.next;
                 }
                 node.next = current;
+                current.prev = node;
                 previous.next = node;
+                node.prev = previous;
             }
             length++;
             return true;
@@ -54,15 +56,27 @@ function LinkedList() {
             let index = 0;
             if (position === 0) {
                 head = current.next;
+                if (length === 1) {
+                    tail = null;    //只有一项的时候，更新tail
+                } else {
+                    head.prev = null;
+                }
+            } else if (position === length - 1) {
+                current = tail;
+                tail = current.prev;
+                tail.next = null;
             } else {
                 while (index++ < position) {
                     previous = current;
                     current = current.next;
                 }
                 previous.next = current.next;
+                current.next.prev = previous;
             }
             length--;
             return current.element;
+        } else {
+            return null;
         }
     };
     this.remove = function (element) {
@@ -105,16 +119,16 @@ function LinkedList() {
 }
 
 //test
-let list = new LinkedList();
+let list = new DoubleLinkedList();
 list.append(1);
 list.append(2);
 list.append(3);
 list.append(4);
 // console.log(list.removeAt(1));
-console.log(list.insert(1, 8));
+// console.log(list.insert(1, 8));
 // console.log(list.size());
-console.log(list.indexOf(0));
-console.log(list.indexOf(3));
+// console.log(list.indexOf(0));
+// console.log(list.indexOf(3));
 console.log(list.toString());
-console.log(list.remove(2));
+console.log(list.removeAt(2));
 console.log(list.toString());
