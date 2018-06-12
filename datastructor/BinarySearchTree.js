@@ -95,6 +95,63 @@ function BinarySearchTree() {
     this.max = function () {
         return maxNode(root);
     };
+    let searchNode = function (node, key) {
+        if (!node) {
+            return false;
+        }
+        if (key < node.key) {
+            return searchNode(node.left, key);
+        } else if (key > node.key) {
+            return searchNode(node.right, key);
+        } else {
+            return true;
+        }
+    };
+    // 寻找特定值
+    this.search = function (key) {
+        return searchNode(root, key);
+    };
+
+    findMinNode = function (node) {
+        while (node && node.left!==null) {
+            node = node.left;
+        }
+        return node;
+    };
+    let removeNode = function (node, key) {
+        if (!node) {
+            return null;
+        }
+        if (key < node.key) {
+            node.left = removeNode(node.left, key);
+            return node;
+        } else if (key > node.key) {
+            node.right = removeNode(node.right, key);
+            return node;
+        } else {
+            // 一个叶节点
+            if (!node.left && !node.right) {
+                node = null;
+                return node;
+            }
+            // 有一个子节点的节点
+            if (!node.left) {
+                node = node.right;
+                return node;
+            } else if (!node.right) {
+                node = node.left;
+                return node;
+            }
+            // 有两个节点
+            let aux = findMinNode(node.right);
+            node.key = aux.key;
+            node.right = removeNode(node.right, aux.key);
+            return node;
+        }
+    };
+    this.remove = function (key) {
+        root = removeNode(root, key);
+    };
 }
 
 
@@ -105,6 +162,7 @@ tree.insert(11);
 tree.insert(7);
 tree.insert(15);
 tree.insert(5);
+tree.insert(6);
 tree.insert(3);
 tree.insert(9);
 tree.insert(8);
@@ -116,10 +174,12 @@ tree.insert(20);
 tree.insert(18);
 tree.insert(25);
 let printNode = function (value) {
-    console.log(value+' ');
+    console.log(value);
 };
-// tree.inOrderTraverse(printNode);
+tree.inOrderTraverse(printNode);
 // tree.preOrderTraverse(printNode);
 // tree.postOrderTraverse(printNode);
-console.log(tree.min());
-console.log(tree.max());
+// console.log(tree.min());
+// console.log(tree.max());
+tree.remove(7);
+tree.inOrderTraverse(printNode);
