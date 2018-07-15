@@ -1,9 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a, .dropdowwn .dropbtn{
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover, .dropdowwn:hover, .dropbtn {
+            background-color: #111;
+        }
+
+        .dropdowwn {
+            display: inline-block;
+        }
+
+        .dropdowwn-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            -webkit-box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdowwn-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdowwn-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdowwn:hover .dropdowwn-content {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a class="active" href="#">主页</a></li>
+        <li><a href="#">新闻</a></li>
+        <div class="dropdowwn">
+            <a href="#" class="dropbtn">下拉菜单</a>
+            <div class="dropdowwn-content">
+                <a href="#">链接1</a>
+                <a href="#">链接1</a>
+                <a href="#">链接1</a>
+            </div>
+        </div>
+    </ul>
     <div>我的名字:keller</div>
-    <script>alert(1);</script>
     <div>'hello'</div>
     <div style="width:100px;height:100px"></div>
     <div class="red green"></div>
@@ -12,5 +79,5 @@
     <div>green</div>
     <div style="background:red">偶数</div>
     <div>1</div>
-  </head>
+</body>
 </html>
